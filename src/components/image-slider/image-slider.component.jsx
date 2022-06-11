@@ -19,6 +19,32 @@ const HomeScreen = () => {
     "Life of a Photographer",
   ]);
 
+  const nextPage = () => {
+    setPage(page + 1);
+  };
+
+  const prevPage = () => {
+    if (page < 0) {
+      setPage(statement.length);
+    } else {
+      setPage(page - 1);
+    }
+  };
+
+  const imageUpload = (e) => {
+    const file = e.target.files[0];
+    const saveFile = URL.createObjectURL(file);
+    setImage(saveFile);
+  };
+
+  const addToStatement = (e) => {
+    console.log(e);
+
+    setStatement([...statement, name]);
+    setPicture([...picture, image]);
+    setName("");
+  };
+
   return (
     <div className="container">
       <div className="body">
@@ -30,7 +56,12 @@ const HomeScreen = () => {
             <label htmlFor="pix" className="input__label">
               Upload your image
             </label>
-            <input id="pix" className="topSection__input" type="file" />
+            <input
+              id="pix"
+              className="topSection__input"
+              type="file"
+              onChange={imageUpload}
+            />
           </div>
         </div>
         <div className="middle__section">
@@ -42,11 +73,13 @@ const HomeScreen = () => {
               setName(e.target.value);
             }}
           />
-          <button className="btn">Add</button>
+          <button className="btn" onClick={addToStatement}>
+            Add
+          </button>
         </div>
         <div className="bottom__section">
           <div className="arrow__container">
-            <BiLeftArrow className="arrow" />{" "}
+            <BiLeftArrow className="arrow" onClick={prevPage} />{" "}
           </div>
           <div>
             <div className="statement">
@@ -62,7 +95,7 @@ const HomeScreen = () => {
           </div>
 
           <div className="arrow__container">
-            <BiRightArrow className="arrow" />{" "}
+            <BiRightArrow className="arrow" onClick={nextPage} />{" "}
           </div>
         </div>
       </div>

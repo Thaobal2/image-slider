@@ -43,6 +43,7 @@ const HomeScreen = () => {
     setStatement([...statement, name]);
     setPicture([...picture, image]);
     setName("");
+    setImage(img4);
   };
 
   return (
